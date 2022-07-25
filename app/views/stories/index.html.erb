@@ -1,0 +1,13 @@
+<h1>Stories</h1>
+
+<ul>
+  <% @stories.each do |story| %>
+    <% # unless story.archived? %>
+      <li>
+        <%= link_to story.headline, story %>
+      </li>
+    <% # end %>
+  <% end %>
+</ul>
+
+<%= link_to "New Story", new_story_path %>
