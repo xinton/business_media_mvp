@@ -5,10 +5,6 @@ class User < ApplicationRecord
 
   def self.authenticate(organization, email, password)
     user = find_by_email(email)
-    if user && user.password_digest == password && user.organization == organization
-      user
-    else
-      nil
-    end
+    user && user.password_digest == password && user.organization == organization ? user : nil
   end
 end
