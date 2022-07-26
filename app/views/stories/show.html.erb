@@ -2,9 +2,11 @@
 
 <p> <strong>Text: </strong> <%= @story.body %></p>
 
-<p> <strong>Writer: </strong> <%= @story.writer %></p>
+<p> <strong>Writer: </strong> <% if @story.writer %> <%= @story.writer.name  %> <% end %> </p>
 
-<p> <strong>Reviewer: </strong> <%= @story.reviewer %></p>
+<p> <strong>Reviewer: </strong> <% if @story.reviewer %> <%= @story.reviewer.name  %> <% end %> </p>
+
+<p> <strong>Status: </strong> <%= @story.status %></p>
 
 <ul>
   <li><%= link_to "Edit", edit_story_path(@story) %></li>

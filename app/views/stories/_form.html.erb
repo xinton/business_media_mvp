@@ -8,6 +8,22 @@
   </div>
 
   <div>
+    <%= form.label :writer_id %><br>
+    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }%>
+    <% story.errors.full_messages_for(:writer_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :reviewer_id %><br>
+    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }%>
+    <% story.errors.full_messages_for(:reviewer_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.label :body %><br>
     <%= form.text_area :body %><br>
     <% story.errors.full_messages_for(:body).each do |message| %>

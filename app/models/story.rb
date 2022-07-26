@@ -3,4 +3,6 @@ class Story < ApplicationRecord
   belongs_to :writer, :class_name => "User", foreign_key: :writer_id, optional: true
   belongs_to :reviewer, :class_name => "User", foreign_key: :reviewer_id, optional: true
   belongs_to :organization
+
+  attr_accessor :writer_id, :reviewer_id
 end
