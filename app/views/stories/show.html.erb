@@ -1,0 +1,19 @@
+ <h1><strong>Headline: </strong><%= @story.headline %></h1>
+
+<p> <strong>Text: </strong> <%= @story.body %></p>
+
+<p> <strong>Writer: </strong> <%= @story.writer %></p>
+
+<p> <strong>Reviewer: </strong> <%= @story.reviewer %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_story_path(@story) %></li>
+  <li><%= link_to "Destroy", story_path(@story), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+  
+  <div>               
+</ul>
+
+<%= link_to "Back to Stories list", stories_path %>
