@@ -15,8 +15,8 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(article_params)
-    @story.organization = Organization.find_by_id(1)
-    @story.chief = User.find_by_id(1)
+    @story.organization = current_user.organization
+    @story.chief = current_user
 
     if @story.save
       redirect_to stories_path
