@@ -1,15 +1,17 @@
 <%= form_with model: story do |form| %>
   <div>
     <%= form.label :headline %><br>
-    <%= form.text_field :headline %>
+    <%= form.text_field :headline, disabled: !chief? %>
     <% story.errors.full_messages_for(:headline).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
+  <%= @story.status %>
+
   <div>
     <%= form.label :writer_id %><br>
-    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }%>
+    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, disabled: !chief?%>
     <% story.errors.full_messages_for(:writer_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -17,7 +19,7 @@
 
   <div>
     <%= form.label :reviewer_id %><br>
-    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }%>
+    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, disabled: !chief?%>
     <% story.errors.full_messages_for(:reviewer_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -25,15 +27,17 @@
 
   <div>
     <%= form.label :body %><br>
-    <%= form.text_area :body %><br>
+    <%= form.text_area :body, disabled: !can_write? %><br>
     <% story.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit current_action_text %>
   </div>
+
+
 <% end %>
 
 <%= link_to "Stories", stories_path %>
