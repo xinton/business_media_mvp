@@ -10,4 +10,4 @@
   <% end %>
 </ul>
 
-<%= link_to "New Story", new_story_path %>
+<%= button_to "New", new_story_path, :class => "button", :method => :get, disabled: !chief?  %>
