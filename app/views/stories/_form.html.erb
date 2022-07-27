@@ -11,7 +11,8 @@
 
   <div>
     <%= form.label :writer_id %><br>
-    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, disabled: !chief?%>
+    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, selected: 2, disabled: false%>
+    <%= form.object[:writer_id] %>
     <% story.errors.full_messages_for(:writer_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -19,7 +20,7 @@
 
   <div>
     <%= form.label :reviewer_id %><br>
-    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, disabled: !chief?%>
+    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, disabled: false%>
     <% story.errors.full_messages_for(:reviewer_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -34,7 +35,7 @@
   </div>
 
   <div>
-    <%= form.submit current_action_text %>
+    <%= form.submit current_action_text, disabled: !current_action_permission%>
   </div>
 
 
