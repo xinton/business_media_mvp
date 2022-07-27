@@ -17,8 +17,9 @@ class StoriesController < ApplicationController
     @story = Story.new(article_params)
     @story.organization = current_user.organization
     @story.chief = current_user
-    @story.writer = article_params[:writer_id] ? User.find(article_params[:writer_id]) : nil
-    @story.reviewer = article_params[:reviewer_id] ? User.find(article_params[:reviewer_id]) : nil
+
+    writer_on_creation
+    @story.reviewer = article_params[:reviewer_id].present? ? User.find(article_params[:reviewer_id]) : nil
 
     if @story.save
       redirect_to stories_path
@@ -51,5 +52,14 @@ class StoriesController < ApplicationController
   private
     def article_params
       params.require(:story).permit(:headline, :body, :chief, :organization, :writer_id, :reviewer_id)
+    end
+
+    def writer_on_creation
+      if ( article_params[:writer_id].present? )
+        @story.writer =  User.find(article_params[:writer_id])
+        @story.status = "draft"
+      else
+        @story.status = "unassigned"
+      end
     end
 end
