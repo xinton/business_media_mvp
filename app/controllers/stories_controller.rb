@@ -57,9 +57,9 @@ class StoriesController < ApplicationController
     def writer_on_creation
       if ( article_params[:writer_id].present? )
         @story.writer =  User.find(article_params[:writer_id])
-        @story.status = "draft"
+        @story.create_with_writer
       else
-        @story.status = "unassigned"
+        @story.create_without_writer
       end
     end
 end
