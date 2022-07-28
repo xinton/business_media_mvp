@@ -81,7 +81,7 @@ module StoriesHelper
     when 'unassigned'
       @story.assign_writer if @story.writer.present?
     when 'draft'
-      @story.request_review if @story.writer.present? && @story.reviwer.present? && @story.body.present?  
+      @story.request_review if @story.writer.present? && @story.reviewer.present? && @story.body.present?  
     when 'for_review'
       @story.start_review   
     when 'in_review'
