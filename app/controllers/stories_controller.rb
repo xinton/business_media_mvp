@@ -2,6 +2,14 @@ class StoriesController < ApplicationController
   include StoriesHelper
 
   before_action :authorize
+  before_action :create_authorized? , only: [:new, :create]
+
+  def create_authorized?
+    unless chief?
+      flash.alert = "Action unauthorized"
+      redirect_to stories_path
+    end
+  end
   
   def index
     @stories = Story.all
@@ -24,6 +32,7 @@ class StoriesController < ApplicationController
     handle_writer_on_creation
 
     if @story.save
+      flash.alert = "Story Created!"
       redirect_to stories_path
     else
       render :new, status: :unprocessable_entity

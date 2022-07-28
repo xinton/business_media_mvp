@@ -4,6 +4,7 @@ class Story < ApplicationRecord
   belongs_to :reviewer, :class_name => "User", foreign_key: :reviewer_id, optional: true
   belongs_to :organization
 
+  validates :headline, :chief, :organization, presence: true
   attr_accessor :writer_id, :reviewer_id
 
   include AASM
