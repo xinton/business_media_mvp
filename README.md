@@ -20,15 +20,17 @@ Installed Gems:
 
 ## Configuration
 
+Clone the project and in directory terminal, run `bin/rails server` to enable the project to receive requests.
+
+Project running on `http://localhost:3000/`
+
 ## Database creation
 
-Run: `bin/rails db:migrate`
+In the project directory, run: `bin/rails db:migrate`
 
 ## Database initialization
 
-Run: `bin/rails db:migrate`
-
-To create the Organization and User, first login on the database: `bin/rails dbconsole`
+To create the Organization and User, first access the database console: `bin/rails dbconsole`
 
 - **Create Organization**
 
@@ -42,26 +44,25 @@ To create the Organization and User, first login on the database: `bin/rails dbc
 ## How to run the test suite
 
 - **Run all specs in the project on spec folder:** `bundle exec rspec`
-- **Run specs specs under a folder:** `bundle exec rspec spec/example_folder`
+- **Run specs under a folder:** `bundle exec rspec spec/example_folder`
 - **Run single file test:** `bundle exec rspec spec/exemple_folder/example_spec.rb`
 - **Run a test or a subtest of test:** `bundle exec rspec spec/exemple_folder/example_spec.rb:28`
-  Where 28 are start a 'it', 'describe' or 'contenxt' block
+  Where 28 is a row that start a 'it', 'describe' or 'contenxt' block
 
 ## What was missing
 
-- Only the "straight line" flow was be made. The "Pending" to "Draft" and "Approved" to "Archivied" was not made.
+- Only the "straight line" flow was be made. The "Pending" to "Draft" and "Approved" to "Archivied" was not made, has the button but not the function;
 - The Comments feature.
 - The project was made using the SQLite, and not MySQL.
 - List filters.
-
-## Possible improvements
-
-- Use a "professional" authorization Gem like `Devise`.
-- More worked layout.
-- Put the Organization slug on ulr.
+- Story flow error messages.
+- "Only the Chief Editor, and the Writer and Reviewer assigned to the story can see the
+  content of a story before it’s been published, after that though, any other user can
+  view its content (by clicking to show the body in the Stories index)."
 
 ## What can be improved
 
-## Services (job queues, cache servers, search engines, etc.)
-
-## Deployment instructions
+- Use a "professional" authorization Gem like `Devise`.
+- More worked layout.
+- Put the Organization slug on URL.
+- By mistake, different types were created for writer and reviewer.
