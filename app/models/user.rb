@@ -5,6 +5,8 @@ class User < ApplicationRecord
   
   belongs_to :organization
 
+  validates :name, :email, :organization, presence: true
+
   validates_uniqueness_of :email
 
   def self.authenticate(organization, email, password)
