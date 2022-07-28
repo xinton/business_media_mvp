@@ -2,6 +2,30 @@ module StoriesHelper
   # Give view access
   include StoriesPolicy
 
+  def has_writer_id(form)
+    form.object[:writer_id] ? form.object[:writer_id] : nil
+  end
+
+  def hidde_writer_select?(form, form_select)
+    if form_select
+      has_writer_id(form) ? "hidden" : "display_block"
+    elsif 
+      has_writer_id(form) ? "display_block" : "hidden"
+    end
+  end
+
+  def has_reviewer_id(form)
+    form.object[:reviewer_id] ? form.object[:reviewer_id] : nil
+  end
+
+  def hidde_reviewer_select?(form, form_select)
+    if form_select
+      has_reviewer_id(form) ? "hidden" : "display_block"
+    elsif 
+      has_reviewer_id(form) ? "display_block" : "hidden"
+    end
+  end
+
   def handle_writer_on_creation
     if article_params[:writer_id].present?
       @story.writer = User.find(article_params[:writer_id])
@@ -11,21 +35,25 @@ module StoriesHelper
     end
   end
 
+  def show_second_btn?
+    ["in_review", "approved"].include?(@story.status) ? "display_block" : "hidden"
+  end
+
   def current_action_text
     #TODO change to hash array
     case @story.status
     when 'unassigned'
-      "SAVE"
+      {main_btn: "SAVE"}
     when 'draft'
-      "REQUEST REVIEW"
+      {main_btn: "REQUEST REVIEW"}
     when 'for_review'
-      "REVIEW"
+      {main_btn: "REVIEW"}
     when 'in_review'
-      "APPROVE"
+      {main_btn: "APPROVE", second_btn: "REQUEST CHANGES"}
     when 'approved'
-      "PUBLISH"
+      {main_btn: "PUBLISH", second_btn: "ARCHIVE"}
     else
-      "Save"
+      {main_btn: "Save", second_btn: "cancel"}
     end
   end
   
@@ -49,9 +77,9 @@ module StoriesHelper
   def handle_state
     case @story.status
     when 'unassigned'
-      @story.assign_writer
+      @story.assign_writer if @story.writer.present?
     when 'draft'
-      @story.request_review    
+      @story.request_review if @story.writer.present? && @story.reviwer.present? && @story.body.present?  
     when 'for_review'
       @story.start_review   
     when 'in_review'
