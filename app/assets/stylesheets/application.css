@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+.hidden {
+  display: none;
+}
+
+.display_block {
+  display: block;
+}
+
+.align_center {
+  text-align: center
+}
+
+.login_info {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-content: flex-end
+}
+
+.story {
+  border-style: solid;
+  margin-bottom: 1em;
+}
