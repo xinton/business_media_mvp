@@ -1,6 +1,7 @@
 class StoriesController < ApplicationController
   include StoriesHelper
   include StoriesPolicy
+  include UpdateEmergencyFix
 
   before_action :authorize
   before_action :create_authorized? , only: [:new, :create]
@@ -40,9 +41,10 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
 
-    @story.writer = article_params[:writer_id].present? ? User.find(article_params[:writer_id]) : nil
-    @story.reviewer = article_params[:reviewer_id].present? ? User.find(article_params[:reviewer_id]) : nil
-    
+    # Emergency workaround: the 'selected:' option from 'form.select' are not working correct
+    writer_verification
+    reviewer_verification
+
     # state machine
     handle_state
 
@@ -62,7 +64,7 @@ class StoriesController < ApplicationController
   
   private
     def article_params
-      params.require(:story).permit(:headline, :body, :status, :chief, :organization, :writer, :writer_id, :reviewer, :reviewer_id)
+      params.require(:story).permit(:headline, :body, :status, :chief, :organization, :writer, :writer_id, :reviewer, :reviewer_id, :main_button)
     end
 
     helper_method :current_action_text, :current_action_permission
