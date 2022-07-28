@@ -12,7 +12,9 @@
 
   <div class="form_field">
     <%= form.label :writer_id %><br>
-    <%= form.select :writer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, 
+    <%= form.select :writer_id, 
+                    User.where(organization_id: current_user.organization_id).all.collect { |user| [user.name, user.id] }, 
+                    { include_blank: true }, 
                     disabled: false, selected: form.object[:writer_id], 
                     class: hidde_writer_select?(form, true)%>
 
@@ -27,7 +29,9 @@
 
   <div class="form_field">
     <%= form.label :reviewer_id %><br>
-    <%= form.select :reviewer_id, User.all.collect { |user| [user.name, user.id] }, { include_blank: true }, 
+    <%= form.select :reviewer_id, 
+                    User.where(organization_id: current_user.organization_id).collect { |user| [user.name, user.id] }, 
+                    { include_blank: true }, 
                     disabled: false, selected: form.object[:reviewer_id],
                     class: hidde_reviewer_select?(form, true)%>
 

@@ -4,7 +4,7 @@
 
 <ul>
   <% @stories.each do |story| %>
-    <% unless story.archived? && story.organization == current_user.organization%>
+    <% unless story.archived? %>
       <li>
         <div class="story"> 
           <%= link_to story.headline, story %>

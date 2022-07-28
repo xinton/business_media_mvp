@@ -7,7 +7,7 @@ class StoriesController < ApplicationController
   before_action :create_authorized? , only: [:new, :create]
 
   def index
-    @stories = Story.all
+    @stories = Story.where(organization_id: current_user.organization_id).all
   end
 
   def show
