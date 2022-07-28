@@ -2,6 +2,7 @@ module StoriesHelper
   # Give view access
   include StoriesPolicy
 
+  # Emergency workaround: the 'selected:' option from 'form.select' are not working correct
   def has_writer_id(form)
     form.object[:writer_id] ? form.object[:writer_id] : nil
   end
@@ -25,6 +26,7 @@ module StoriesHelper
       has_reviewer_id(form) ? "display_block" : "hidden"
     end
   end
+  # END Emergency workaround
 
   def handle_writer_on_creation
     if article_params[:writer_id].present?
