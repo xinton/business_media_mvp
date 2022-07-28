@@ -1,33 +1,65 @@
 module StoriesHelper
-  def chief?
-    current_user.role == "chief"
+  # Give view access
+  include StoriesPolicy
+
+  def handle_writer_on_creation
+    if article_params[:writer_id].present?
+      @story.writer = User.find(article_params[:writer_id])
+      @story.create_with_writer
+    else
+      @story.create_without_writer
+    end
   end
 
-  def story_chief?
-    chief? && current_user.id == @story.chief&.id
+  def current_action_text
+    #TODO change to hash array
+    case @story.status
+    when 'unassigned'
+      "SAVE"
+    when 'draft'
+      "REQUEST REVIEW"
+    when 'for_review'
+      "REVIEW"
+    when 'in_review'
+      "APPROVE"
+    when 'approved'
+      "PUBLISH"
+    else
+      "Save"
+    end
+  end
+  
+  def current_action_permission
+    reviwer_status = ['for_review', 'in_review', 'pending']
+
+    case @story.status
+    when 'unassigned'
+      "SAVE"
+    when 'draft'
+      story_write?
+    when *reviwer_status
+      story_reviewer?
+    when 'approved'
+      story_chief?
+    else
+      "Save"
+    end
   end
 
-  def writer?
-    current_user.role == "writer"
-  end
-
-  def story_write?
-    writer? && current_user.id == @story.writer&.id
-  end
-
-  def can_write?
-    story_write? && ["draft", "pending"].include?(@story.status)
-  end
-
-  def reviewer?
-    current_user.role == "reviewer"
-  end
-
-  def story_reviewer?
-    reviewer? && current_user.id == @story.reviewer&.id
-  end
-
-  def can_review?
-    story_reviewer? && ["in_review", "for_review"].include?(@story.status)
+  def handle_state
+    case @story.status
+    when 'unassigned'
+      @story.assign_writer
+    when 'draft'
+      @story.request_review    
+    when 'for_review'
+      @story.start_review   
+    when 'in_review'
+      @story.approve 
+    when 'approved'
+      @story.publish   
+    else
+      "Error"
+    end
   end
 end
