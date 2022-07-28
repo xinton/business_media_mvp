@@ -9,8 +9,10 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :email
 
-  def self.authenticate(organization, email, password)
-    user = find_by_email(email)
-    user && user.password_digest == password && user.organization.slug == organization ? user : nil
+  def self.authenticate(organization_slug, email, password)
+    organization = Organization.find_by slug: organization_slug
+    user = User.find_by email: email, organization: organization
+    
+    user && user.password_digest == password && user.organization.slug == organization_slug ? user : nil
   end
 end
