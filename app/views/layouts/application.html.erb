@@ -21,6 +21,13 @@
         <%= link_to "Log In", login_path %>
       <% end %>
     </div>
+
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
