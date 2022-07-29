@@ -66,3 +66,4 @@ To create the Organization and User, first access the database console: `bin/rai
 - More worked layout.
 - Put the Organization slug on URL.
 - By mistake, different types were created for writer and reviewer.
+- Complete back-end policy verification.
