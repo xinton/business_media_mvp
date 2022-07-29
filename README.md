@@ -32,10 +32,10 @@ In the project directory, run: `bin/rails db:migrate`
 
 To create the Organization and User, first access the database console: `bin/rails dbconsole`
 
-- **Create Organization**
+- **Create Organization example**
 
   `insert into organizations (name, slug, created_at, updated_at) values ('Organization Exemple','orgex', datetime('now'), datetime('now'));`
-- **Create the User**
+- **Create the User example**
   Get a Organization `id`  created manually
   The roles are: `chief` for Editor Chief, `writer` for Writer and `reviewer` for Reviwer
 
