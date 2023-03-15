@@ -1,4 +1,4 @@
-# Pearson Media MVP
+# Business Media MVP
 
 ## Ruby/Rails version
 
